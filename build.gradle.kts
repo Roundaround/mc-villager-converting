@@ -1,13 +1,27 @@
-import me.roundaround.gradle.extension.library.LibModule
-
 plugins {
-  id("roundalib-gradle") version "2.0.0"
+  id("me.roundaround.allay")
 }
 
-roundalib {
-  library {
-    local = true
-    version = "4.0.0"
-    modules.addAll(LibModule.CORE, LibModule.GUI, LibModule.OBSERVABLES, LibModule.CONFIG, LibModule.CONFIG_GUI)
+allay {
+  displayName.set("Villager Converting")
+  description.set("Villagers attacked by zombies always get converted instead of dying.")
+  authors.set(listOf("Roundaround"))
+  license.set("MIT")
+  homepage.set("https://modrinth.com/mod/villager-converting")
+  repository.set("https://github.com/Roundaround/mc-fabric-villager-converting")
+  issues.set("https://github.com/Roundaround/mc-fabric-villager-converting/issues")
+  logoFile.set("assets/villagerconverting/icon.png")
+
+  modrinth {
+    projectId.set("villager-converting")
+  }
+
+  curseforge {
+    projectId.set(1502027)
+  }
+
+  release {
+    versionType.set("release")
+    sourcesJar.set(true)
   }
 }
