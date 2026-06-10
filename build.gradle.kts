@@ -8,8 +8,8 @@ allay {
   authors.set(listOf("Roundaround"))
   license.set("MIT")
   homepage.set("https://modrinth.com/mod/villager-converting")
-  repository.set("https://github.com/Roundaround/mc-fabric-villager-converting")
-  issues.set("https://github.com/Roundaround/mc-fabric-villager-converting/issues")
+  repository.set("https://github.com/Roundaround/mc-villager-converting")
+  issues.set("https://github.com/Roundaround/mc-villager-converting/issues")
   logoFile.set("assets/villagerconverting/banner.png")
 
   modrinth {
