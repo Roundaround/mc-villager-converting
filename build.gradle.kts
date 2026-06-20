@@ -12,6 +12,12 @@ allay {
   issues.set("https://github.com/Roundaround/mc-villager-converting/issues")
   logoFile.set("assets/villagerconverting/banner.png")
 
+  gametest {
+    // Acknowledge the Minecraft EULA for the throwaway worlds the headless
+    // server game test spins up.
+    eula.set(true)
+  }
+
   modrinth {
     projectId.set("villager-converting")
   }
