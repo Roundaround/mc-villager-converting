@@ -1,23 +1,35 @@
 ![Villager Converting](https://imgur.com/fnqUD8S.png)
 
-![](https://img.shields.io/badge/Loader-Fabric-313e51?style=for-the-badge)
-![](https://img.shields.io/badge/MC-26.3%20|%2026.2%20|%2026.1%20|%201.21%20|%201.20%20|%201.19%20|%201.18.2-313e51?style=for-the-badge)
-![](https://img.shields.io/badge/Side-Server-313e51?style=for-the-badge)
-
 [![Modrinth Downloads](https://img.shields.io/modrinth/dt/villager-converting?style=flat&logo=modrinth&color=00AF5C)](https://modrinth.com/mod/villager-converting)
 [![CurseForge Downloads](https://img.shields.io/curseforge/dt/1502027?style=flat&logo=curseforge&color=F16436)](https://www.curseforge.com/minecraft/mc-mods/villager-converting)
 [![GitHub Repo stars](https://img.shields.io/github/stars/Roundaround/mc-villager-converting?style=flat&logo=github)](https://github.com/Roundaround/mc-villager-converting)
 
 [![Support me on Ko-fi](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-singular-alt_vector.svg)](https://ko-fi.com/roundaround)
 
----
+Villagers attacked by zombies always get converted instead of dying, rather than rolling the vanilla dice.
 
-Villagers attacked by zombies always get converted instead of dying. In v0.1.0, the villagers require a name in order to be guaranteed converted. In v1.0.0 and beyond, this is configurable. Required on the server for multiplayer, but also works in single player!
+## Installing
 
-### Configuration
+Grab a build from [Modrinth](https://modrinth.com/mod/villager-converting) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/villager-converting). Fabric builds need [Fabric API](https://modrinth.com/mod/fabric-api).
 
-You can configure the behavior of the mod from the `villagerconverting.toml` file within your server (or local instance for single player) config folder. As of v1.5.0, the config file will be generated _inside_ your world/save folder, as the configuration options have become world-specific. If you're on single player and have ModMenu installed, you can also access the configuration through the UI in ModMenu's mod list!
+## Building from source
 
-`modEnabled`: `true|false` - Simple toggle for the mod! When set to `false`, the villagers will fall back to vanilla behavior/probability for zombie-conversion.
+```sh
+./gradlew build
+```
 
-`requireName`: `true|false` - When set to `true`, only villagers that have a custom name set (i.e. with a nametag) will be guaranteed to convert! Non-named villagers will fall back to vanilla behavior.
+Dev runs are per loader: `:fabric:runClient`, and the `runServer` equivalents. Game tests run with `./gradlew :fabric:runClientGameTests` and `:fabric:runServerGameTests`.
+
+The build is an [Allay](https://github.com/Roundaround/allay) consumer and bundles [Trove](https://github.com/Roundaround/trove).
+
+## Contributing
+
+Issues and pull requests are welcome at [the issue tracker](https://github.com/Roundaround/mc-villager-converting/issues).
+
+- Branch from `main`, which tracks the newest supported Minecraft version. Older lines live on their own version-named branches.
+- Keep loader-agnostic code in `common/`; only genuinely loader-specific glue belongs in a loader subproject.
+- Run `./gradlew build` plus the Fabric game tests before opening a PR, and add a changelog entry under `changelogs/` named for the version you're targeting.
+
+## License
+
+[MIT](LICENSE)
