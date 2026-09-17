@@ -13,7 +13,6 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.monster.zombie.ZombieVillager;
 import net.minecraft.world.entity.npc.villager.Villager;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -26,33 +25,22 @@ final class ConversionTestSupport {
   }
 
   /**
-   * Snapshot the difficulty and config (restored at teardown) and force-load the arena chunk,
-   * since a player-less dedicated server keeps nothing loaded. Call once, before {@link #configure}.
+   * Snapshot the difficulty and config (restored at teardown) and force-load the arena chunk.
+   * Call once, before {@link #configure}.
    */
   static void prepare(ServerTestContext context) {
     VillagerConvertingConfig config = VillagerConvertingConfig.getInstance();
     boolean wasEnabled = config.modEnabled.getValue();
     boolean wasRequireName = config.requireName.getValue();
     Difficulty wasDifficulty = context.computeOnServer((server) -> server.overworld().getDifficulty());
-    ChunkPos chunk = ChunkPos.containing(ARENA);
 
     context.onCleanup(() -> {
       setConfig(config.modEnabled, wasEnabled);
       setConfig(config.requireName, wasRequireName);
-      context.runOnServer((server) -> {
-        server.setDifficulty(wasDifficulty, true);
-        server.overworld().setChunkForced(chunk.x(), chunk.z(), false);
-      });
+      context.runOnServer((server) -> server.setDifficulty(wasDifficulty, true));
     });
 
-    context.runOnServer((server) -> server.overworld().setChunkForced(chunk.x(), chunk.z(), true));
-    for (int i = 0; i < 100; i++) {
-      if (context.computeOnServer((server) -> server.overworld().isPositionEntityTicking(ARENA))) {
-        return;
-      }
-      context.waitTicks(1);
-    }
-    throw new GameTestAssertionException("arena chunk never became entity-ticking");
+    context.forceLoadChunk(ARENA);
   }
 
   /** Set the difficulty and both config options (in memory only) for the kills that follow. */
